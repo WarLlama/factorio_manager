@@ -12,12 +12,10 @@ def fetch_containers():
     client = docker.from_env(version=settings.DOCKER_API_VERSION)
     all_containers = client.containers.list(all=True)
     for c in all_containers:
-        new_c = Container.objects.create(
-            id=c.id,
-            image=c.attrs['Config']['Image'],
-            created=c.attrs['Created'],
-            status=c.attrs['State']['Status'],
-            name=c.attrs['Name'],
-        )
+        new_c = Container.objects.get_or_create(id=c.id)
+        new_c.image = c.attrs['Config']['Image']
+        new_c.created = c.attrs['Created']
+        new_c.status = c.attrs['State']['Status']
+        new_c.name = c.attrs['Name']
         new_c.save()
 

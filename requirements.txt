@@ -1,4 +1,6 @@
 celery[redis]
 django>=1.11.3
 docker>=2.4.0
+MySQL-python==1.2.5
 uwsgi
+

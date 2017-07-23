@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'factorio_manager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'db',
+        'NAME': 'factorio',
+        'CONN_MAX_AGE': 300,
+        'PASSWORD': 'root',
+        'USER': 'root',
     }
 }
 
@@ -121,6 +125,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # App Settings
+DOCKER_SOCKET_URL = 'unix:///var/run/docker.sock'
 DOCKER_API_VERSION = '1.24'
 
 # CELERY SETTINGS

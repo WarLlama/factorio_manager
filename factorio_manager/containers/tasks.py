@@ -16,6 +16,7 @@ def fetch_containers():
             id=c.id,
             image=c.attrs['Config']['Image'],
             created=c.attrs['Created'],
+            started=c.attrs['State']['StartedAt'],
             status=c.attrs['State']['Status'],
             name=c.attrs['Name'])
         new_c.save()

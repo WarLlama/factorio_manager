@@ -9,7 +9,7 @@ from containers.models import Container
 client = docker.DockerClient(base_url=settings.DOCKER_SOCKET_URL, version=settings.DOCKER_API_VERSION)
 
 ports = {
-    '34197/udp': '34197',
+    '34197/udp': '35000',
     '27015/tcp': '27015',
 }
 @shared_task
@@ -32,6 +32,6 @@ def start_container(tag, name):
         image,
         name=name,
         detach=True,
-        devices=['/tmp/factorio:/factorio'],
+        volumes={'/tmp/factorio': {'bind': '/factorio', 'mode': 'rw'}},
         ports=ports,
         restart_policy={'Name': 'always'})
